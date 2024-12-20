@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Школа танцев</title>
+</head>
+<body>
+    <h1>Запишитесь на занятия</h1>
+    <form id="danceForm">
+        <label>Выберите направление:</label>
+        <select id="direction">
+            <option value="hiphop">Хип-хоп</option>
+            <option value="salsa">Сальса</option>
+            <option value="tango">Танго</option>
+            <option value="ballet">Балет</option>
+        </select>
+        <br><br>
+        <label>Ваш уровень:</label>
+        <select id="level">
+            <option value="beginner">Начальный</option>
+            <option value="intermediate">Средний</option>
+            <option value="advanced">Продвинутый</option>
+        </select>
+        <br><br>
+        <label>Контактный номер:</label>
+        <input type="tel" id="phone" required>
+        <br><br>
+        <button type="submit">Отправить</button>
+    </form>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // Раскрыть WebApp
+
+        document.getElementById('danceForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const direction = document.getElementById('direction').value;
+            const level = document.getElementById('level').value;
+            const phone = document.getElementById('phone').value;
+
+            tg.sendData(JSON.stringify({ direction, level, phone })); // Отправка данных боту
+            tg.close(); // Закрыть WebApp
+        });
+    </script>
+</body>
+</html>
